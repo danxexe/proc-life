@@ -9,44 +9,16 @@ $ ->
 	pixel_size = 10
 	half_pixel_size = pixel_size / 2
 
-	data = [
-		[flip(),flip(),flip()]
-		[flip(),flip(),flip()]
-		[flip(),flip(),flip()]
-		[flip(),flip(),flip()]
-		[flip(),flip(),flip()]
-		[flip(),flip(),flip()]
-	]
-
-	new_data = []
-
-	for row, y in data
-		new_row = []
-		new_data.push new_row
-		for p, x in row
-			new_p = flip(p, 0.2)
-			new_row.push new_p
-
+	data = new CreatureData(3, 6)
+	new_data = data.mutate(0.2)
 
 	grid = new Grid()
-	pixels = new fabric.Group()
-
-	for row, y in data
-
-		row.push row[1], row[0]
-
-		for p, x in row
-			if p
-				pixels.add new fabric.Rect
-					top: y * pixel_size + half_pixel_size
-					left: x * pixel_size + half_pixel_size
-					width: pixel_size
-					height: pixel_size
-
+	pixels = new CreatureFrame()
+	# new_pixels = pixels.mutate(0.2)
 
 	new_pixels = new fabric.Group()
 
-	for row, y in new_data
+	for row, y in new_data.rows
 
 		row.push row[1], row[0]
 
@@ -58,11 +30,10 @@ $ ->
 					width: pixel_size
 					height: pixel_size
 
-	# new_pixels.set 'fill', "red"
-
 	frames = [pixels, new_pixels]
 
-	new_pixels.set 'opacity', 0
+	new_pixels.set 'fill', "red"
+	# new_pixels.set 'opacity', 0
 
 	window.pixels = pixels
 
@@ -86,4 +57,4 @@ $ ->
 
 		requestAnimationFrame animate
 
-	animate()
+	# animate()
