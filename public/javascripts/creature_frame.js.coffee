@@ -9,14 +9,12 @@ window.CreatureFrame = class CreatureFrame extends fabric.Group
 
 		super
 
-		@set selectable: true
-
 		@visible = true
 		@pixel_size = 5
 		@half_pixel_size = @pixel_size / 2
 
-		@width = @data.w * @pixel_size
-		@height = @data.h * @pixel_size
+		@set width: (@data.w + 2) * @pixel_size
+		@set height: @data.h * @pixel_size
 
 		@half_width = @width / 2
 		@half_height = @height / 2
@@ -26,8 +24,8 @@ window.CreatureFrame = class CreatureFrame extends fabric.Group
 				p = @data.rows[data_y][data_x]
 				if p
 					@add new fabric.Rect
-						top: (y * @pixel_size) - @half_height
-						left: (x * @pixel_size) - @half_width
+						top: (y * @pixel_size) - @half_height + @half_pixel_size
+						left: (x * @pixel_size) - @half_width + @half_pixel_size
 						width: @pixel_size
 						height: @pixel_size
 

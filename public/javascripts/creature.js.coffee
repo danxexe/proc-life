@@ -1,14 +1,24 @@
 window.Creature = class Creature extends fabric.Group
 
 	constructor: (options) ->
+		@frames = []
+
+		frame = null
+		if options instanceof Creature
+			frame = options.frames[0]
+			for f in options.frames
+				@frames.push new CreatureFrame(f.data)
+			@frames[1].set(visible: false)
+			options = null
+		else
+			frame = new CreatureFrame()
+			@frames.push frame
+			@frames.push frame.mutate(0.2).set(visible: false)
 
 		super
 
-		@frames = []
-
-		frame = new CreatureFrame()
-		@frames.push frame
-		@frames.push frame.mutate(0.2).set(visible: false)
+		@set width: frame.width
+		@set height: frame.height
 
 		@time_since_toggle = 0
 		@time_since_wander = 0
@@ -25,29 +35,36 @@ window.Creature = class Creature extends fabric.Group
 		@ai.bounds = { x:0, y:0, width: world.width, height: world.height }
 		# @ai.edgeBehavior = "BOUNCE"
 
+		@set top: world.height / 2
+		@set left: world.width / 2
+
 		@hasRotatingPoint = true
 		@rotatingPointOffset
 
 		@set fill: @randomColor()
 		@set opacity: 0.7
 
-	update: (dt) ->
+		@set cornersize: 5
+
+	update: (dt, options = {}) ->
 		@time_since_toggle += dt
 		@time_since_wander += dt
 
-		if @time_since_wander > 2
-			@time_since_wander = 0
-			@ai.wander()
-		@ai.update()
+		unless options['ai'] == false
+			if @time_since_wander > 2
+				@time_since_wander = 0
+				@ai.wander()
+
+			@ai.update()
+
+			@set left: @ai.position.x
+			@set top: @ai.position.y
+			@rotate(@ai.rotation + 90)
 
 		if @time_since_toggle > 400
 			@time_since_toggle = 0
 			for frame in @frames
 				frame.toggleVisible()
-
-		@set left: @ai.position.x
-		@set top: @ai.position.y
-		@rotate(@ai.rotation + 90)
 
 	randomColor: ->
 		letters = '0123456789ABCDEF'.split('')
