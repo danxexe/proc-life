@@ -9,8 +9,10 @@ window.CreatureFrame = class CreatureFrame extends fabric.Group
 
 		super
 
+		@set selectable: true
+
 		@visible = true
-		@pixel_size = 10
+		@pixel_size = 5
 		@half_pixel_size = @pixel_size / 2
 
 		for data_y, y in ([0...@data.rows.length])
