@@ -1,9 +1,15 @@
 window.CreatureFrame = class CreatureFrame extends fabric.Group
 
 	constructor: (options) ->
+		if options instanceof CreatureData
+			@data = options
+			options = null
+		else
+			@data = new CreatureData(3, 6)
+
 		super
 
-		@data = new CreatureData(3, 6)
+		@visible = true
 		@pixel_size = 10
 		@half_pixel_size = @pixel_size / 2
 
@@ -19,3 +25,10 @@ window.CreatureFrame = class CreatureFrame extends fabric.Group
 
 	mutate: (chance) ->
 		new CreatureFrame(@data.mutate(chance))
+
+	toggleVisible: ->
+		@visible = !@visible
+
+	render: (ctx, noTransform) ->
+		return unless @visible
+		super(ctx, noTransform)

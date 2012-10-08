@@ -9,13 +9,16 @@ body {
 	height: 100%;
 }
 
-.canvas-container {
+#canvas-wrapper {
 	width: 50px !important;
 	height: 60px !important;
 	margin: 0 auto;
-	position: absolute;
+	position: relative;
 	top: 50%;
 	margin-top: -30px;
+}
+
+.canvas-container {
 }
 
 #stage {
