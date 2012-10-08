@@ -15,13 +15,19 @@ window.CreatureFrame = class CreatureFrame extends fabric.Group
 		@pixel_size = 5
 		@half_pixel_size = @pixel_size / 2
 
+		@width = @data.w * @pixel_size
+		@height = @data.h * @pixel_size
+
+		@half_width = @width / 2
+		@half_height = @height / 2
+
 		for data_y, y in ([0...@data.rows.length])
 			for data_x, x in [0...@data.rows[data_y].length].concat [1, 0]
 				p = @data.rows[data_y][data_x]
 				if p
 					@add new fabric.Rect
-						top: y * @pixel_size + @half_pixel_size
-						left: x * @pixel_size + @half_pixel_size
+						top: (y * @pixel_size) - @half_height
+						left: (x * @pixel_size) - @half_width
 						width: @pixel_size
 						height: @pixel_size
 

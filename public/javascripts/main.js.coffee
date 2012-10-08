@@ -1,23 +1,28 @@
 $ ->
 	$('#stage').attr width: $(document).width()
 	$('#stage').attr height: $(document).height()
-	stage = new fabric.Canvas('stage');
+	window.world = new fabric.Canvas('stage');
 
 	grid = new Grid()
 
-	window.creature = new Creature()
-	stage.add creature
+	window.creatures = []
+
+	for [0...10]
+		creature = new Creature()
+		creatures.push creature
+		world.add creature
 
 	last_time = new Date().getTime()
 	animate = (time) ->
 		time ||= last_time
 		dt = time - last_time
 
-		creature.update(dt)
+		for creature in creatures
+			creature.update(dt)
 
 		last_time = time
 
-		stage.renderAll()
+		world.renderAll()
 		requestAnimationFrame animate
 
 	animate()

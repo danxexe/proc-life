@@ -3,12 +3,12 @@ window.CreatureData = class CreatureData
 	constructor: (w_or_data = 1, h = 1) ->
 		if w_or_data instanceof Array
 			@rows = w_or_data
-			@w = @rows.length
-			@h = @rows[0].length
+			@h = @rows.length
+			@w = @rows[0].length
 		else if w_or_data instanceof CreatureData
 			@rows = w_or_data.rows
-			@w = @rows.length
-			@h = @rows[0].length
+			@h = @rows.length
+			@w = @rows[0].length
 		else
 			@w = w_or_data
 			@h = h
