@@ -5,19 +5,19 @@ $ ->
 
 	grid = new Grid()
 
-	creature = new Creature()
+	window.creature = new Creature()
 	stage.add creature
 
 	last_time = new Date().getTime()
 	animate = (time) ->
-
+		time ||= last_time
 		dt = time - last_time
 
-		if dt > 400
-			last_time = time;
-			creature.update()
-			stage.renderAll()
+		creature.update(dt)
 
+		last_time = time
+
+		stage.renderAll()
 		requestAnimationFrame animate
 
 	animate()
