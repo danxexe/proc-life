@@ -22,6 +22,8 @@ $ ->
 
 		selected_creature?.update(dt, ai: false)
 
+		playNote(dt)
+
 		last_time = time
 
 		world.renderAll()
