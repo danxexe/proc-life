@@ -353,7 +353,7 @@
     };
     animate();
     window.selected_creature = null;
-    world.on('object:selected', function(options) {
+    world.on('object:over', function(options) {
       world.remove(selected_creature);
       creature = options.target;
       window.selected_creature = new Creature(creature);

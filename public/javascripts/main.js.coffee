@@ -22,7 +22,7 @@ $ ->
 
 		selected_creature?.update(dt, ai: false)
 
-		playNote(dt)
+		# playNote(dt)
 
 		last_time = time
 
@@ -32,7 +32,7 @@ $ ->
 	animate()
 
 	window.selected_creature = null
-	world.on 'object:selected', (options) ->
+	world.on 'object:over', (options) ->
 		world.remove selected_creature
 
 		creature = options.target
