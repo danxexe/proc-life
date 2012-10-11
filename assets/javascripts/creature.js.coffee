@@ -77,6 +77,7 @@ window.Creature = class Creature extends fabric.Group
 		string = ''
 		for frame in @frames
 			string += frame.data.toBinaryString()
+		string += baseConverter(@fill.replace('#', ''), 16, 2)
 		string
 
 	toInt: ->
@@ -85,7 +86,8 @@ window.Creature = class Creature extends fabric.Group
 	toByteArray: ->
 		bytes = []
 		value = @toInt()
-		for k in [4..0]
+		num_bytes = Math.ceil(Math.ceil(Math.log(value + 1) / Math.LN2) / 8)
+		for k in [(num_bytes-1)..0]
 			bytes[k] = value & (255)
 			value = value / 256
 		bytes
