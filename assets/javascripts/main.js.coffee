@@ -1,7 +1,9 @@
 $ ->
 	$('#stage').attr width: $(document).width()
 	$('#stage').attr height: $(document).height()
-	window.world = new fabric.Canvas('stage');
+	window.world = world = new fabric.Canvas('stage')
+	# world.selectionColor = 'red'
+	world.selection = false
 
 	grid = new Grid()
 
@@ -36,6 +38,7 @@ $ ->
 		world.remove selected_creature
 
 		creature = options.target
+		world.setActiveObject(creature)
 
 		window.selected_creature = new Creature(creature)
 
@@ -47,8 +50,3 @@ $ ->
 			fill: creature.fill
 
 		world.add selected_creature
-
-	world.on 'selection:created', (options) ->
-		world.discardActiveGroup()
-		creature = options.target.objects[0]
-		world.fire('object:selected', target: creature)
