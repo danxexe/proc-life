@@ -6,6 +6,8 @@
 //= require javascript-vehicles/Vector2D
 //= require javascript-vehicles/Vehicle
 //= require javascript-vehicles/SteeredVehicle
+//= require b64
+//= require baseConverter
 
 //= require grid
 //= require creature_data

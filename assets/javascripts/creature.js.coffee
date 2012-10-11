@@ -72,3 +72,23 @@ window.Creature = class Creature extends fabric.Group
 		for [0...6]
 			color += letters[Math.round(Math.random() * 15)]
 		color
+
+	toBinaryString: ->
+		string = ''
+		for frame in @frames
+			string += frame.data.toBinaryString()
+		string
+
+	toInt: ->
+		parseInt(@toBinaryString(), 2)
+
+	toByteArray: ->
+		bytes = []
+		value = @toInt()
+		for k in [4..0]
+			bytes[k] = value & (255)
+			value = value / 256
+		bytes
+
+	toBase64: ->
+		Base64.fromByteArray @toByteArray()

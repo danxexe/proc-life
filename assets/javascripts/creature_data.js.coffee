@@ -39,3 +39,24 @@ window.CreatureData = class CreatureData
 	@pixel: (current = false, chance = 0.5) ->
 		flipped = Math.floor(Math.random() * (1 / chance)) == 1
 		if flipped then !current else current
+
+	toBinaryString: ->
+		string = ''
+		for row in @rows
+			for p in row
+				string += (if p then '1' else '0')
+		string
+
+	toInt: ->
+		parseInt(@toBinaryString(), 2)
+
+	toByteArray: ->
+		bytes = []
+		value = @toInt()
+		for k in [2..0]
+			bytes[k] = value & (255)
+			value = value / 256
+		bytes
+
+	toBase64: ->
+		Base64.fromByteArray @toByteArray()
