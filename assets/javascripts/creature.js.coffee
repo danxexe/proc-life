@@ -4,11 +4,13 @@ window.Creature = class Creature extends fabric.Group
 		@frames = []
 
 		frame = null
-		if options instanceof Creature
+		if options instanceof Object
 			frame = options.frames[0]
 			for f in options.frames
-				@frames.push new CreatureFrame(f.data)
+				data = if f instanceof CreatureFrame then f.data else f
+				@frames.push new CreatureFrame(data)
 			@frames[1].set(visible: false)
+			color = options.fill
 			options = null
 		else
 			frame = new CreatureFrame()
@@ -41,7 +43,7 @@ window.Creature = class Creature extends fabric.Group
 		@hasRotatingPoint = true
 		@rotatingPointOffset
 
-		@set fill: @randomColor()
+		@set fill: (color || @randomColor())
 		@set opacity: 0.7
 
 		@set cornersize: 5
@@ -73,24 +75,8 @@ window.Creature = class Creature extends fabric.Group
 			color += letters[Math.round(Math.random() * 15)]
 		color
 
-	toBinaryString: ->
-		string = ''
-		for frame in @frames
-			string += frame.data.toBinaryString()
-		string += baseConverter(@fill.replace('#', ''), 16, 2)
-		string
-
-	toInt: ->
-		parseInt(@toBinaryString(), 2)
-
-	toByteArray: ->
-		bytes = []
-		value = @toInt()
-		num_bytes = Math.ceil(Math.ceil(Math.log(value + 1) / Math.LN2) / 8)
-		for k in [(num_bytes-1)..0]
-			bytes[k] = value & (255)
-			value = value / 256
-		bytes
+	fillToInt: ->
+		parseInt(@fill.replace(/^#/, ''), 16)
 
 	toBase64: ->
-		Base64.fromByteArray @toByteArray()
+		CreatureSerializer.toString @

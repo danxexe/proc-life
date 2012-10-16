@@ -1,52 +1,27 @@
 $ ->
 	$('#stage').attr width: $(document).width()
 	$('#stage').attr height: $(document).height()
-	window.world = world = new fabric.Canvas('stage')
-	# world.selectionColor = 'red'
+	window.world = world = new World('stage')
 	world.selection = false
 
-	grid = new Grid()
+	app_animate = (time) ->
+		world.animate(time)
+		requestAnimationFrame app_animate
 
-	world.creatures = creatures = []
 
-	for [0...10]
-		creature = new Creature()
-		creatures.push creature
-		world.add creature
+	# world.fire 'object:over', target: world.creatures[world.creatures.length - 1]
 
-	last_time = new Date().getTime()
-	animate = (time) ->
-		time ||= last_time
-		dt = time - last_time
+	# CreatureSerializer.toString(selected_creature)
 
-		for creature in creatures
-			creature.update(dt)
+	c = CreatureSerializer.fromString('GLxkrzA7E5E=')
+	# console.log c
+	# console.log CreatureSerializer.toString(c)
 
-		selected_creature?.update(dt, ai: false)
+	# c = new Creature();
 
-		# playNote(dt)
+	world.creatures.push c
+	# world.generateCreatures(10)
+	world.setup()
+	world.fire 'object:over', target: world.creatures[world.creatures.length - 1]
 
-		last_time = time
-
-		world.renderAll()
-		requestAnimationFrame animate
-
-	animate()
-
-	window.selected_creature = null
-	world.on 'object:over', (options) ->
-		world.remove selected_creature
-
-		creature = options.target
-		world.setActiveObject(creature)
-
-		window.selected_creature = new Creature(creature)
-
-		selected_creature.top = selected_creature.height + 8
-		selected_creature.left = selected_creature.width + 8
-
-		selected_creature.scale 2
-		selected_creature.set
-			fill: creature.fill
-
-		world.add selected_creature
+	app_animate()

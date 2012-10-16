@@ -1,5 +1,6 @@
 //= require rAF
 //= require jquery
+//= require underscore
 //= require fabric
 //= require fabric.hover
 //= require javascript-vehicles/Class
@@ -7,12 +8,14 @@
 //= require javascript-vehicles/Vehicle
 //= require javascript-vehicles/SteeredVehicle
 //= require b64
-//= require baseConverter
+//= require bit_stream
 
+//= require world
 //= require grid
 //= require creature_data
 //= require creature_frame
 //= require creature
+//= require creature_serializer
 //= require main
 //= require riffwave
 //= require worker
