@@ -1,44 +1,43 @@
-# importScripts('riffwave.js');
+# worker = new Worker('javascripts/noise.js')
 
-# var wave = new RIFFWAVE();
-# wave.header.sampleRate = 22000;
-# wave.header.numChannels = 1;
-# wave.header.bitsPerSample = 16;
-# var i = 0;
-# var samples = [];
+# worker.addEventListener 'message', (e) ->
+#   audio = new Audio(e.data)
+#   audio.addEventListener 'ended', ->
+#     worker.postMessage()
 
-# while (i < 2000) {
-  # while (i < 2000) {
-    # samples[i++] = 0;
-    # rand = 1 + Math.random() * 255;
-    # samples[i++] = 0x8000+Math.round(0x7fff*Math.sin(i / rand));
-  # }
+#   audio.play()
+# , false
 
-  # wave.Make(samples);
-  # self.postMessage(wave.dataURI);
-# }
+# worker.postMessage()
 
-# importScripts('wavencoder.js')
+audio = new webkitAudioContext()
+window.synth = audio.createOscillator()
+synth.type = 2 # Sawtooth
 
-# sampleRateHz = 44100
-# numSamples = 0.4 * sampleRateHz
-# baseFreq = 2 * Math.PI * 27.5 / sampleRateHz
+time_since_note = 0
+window.mute = false
 
-# wavEncoder = new WavEncoder(numSamples, sampleRateHz: sampleRateHz)
+$(window).keydown (e) ->
+	if e.which == 77
+		window.mute = !window.mute
+		synth.noteOff(0) if window.mute
+		console.log window.mute
 
-# @onmessage = (e) ->
+window.playNote = (dt) ->
+	return if window.mute
 
-#   samples = []
+	time_since_note += dt
 
-#   note = 440
+	if time_since_note > 400
+		note = Math.floor(-12 + Math.random() * 12)
+		freq = Math.pow(2, note / 12) * 440
+		synth.frequency.value = freq
+		synth.connect(audio.destination)
+		synth.noteOn(0)
+		synth.noteOff(10)
 
-#   freq = baseFreq * note
+	if time_since_note > 600
+		time_since_note = 0
+		synth.disconnect()
 
-#   for t in [0...numSamples]
-#     s = (freq * t)
-#     samples[t] = s - Math.floor(s);
-
-#   tones = wavEncoder.encode(samples)
-#   @postMessage(tones)
-
-# console.log 'bla'
+	time_since_note

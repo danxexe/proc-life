@@ -1,14 +1,12 @@
-//= require rAF
-//= require jquery
-//= require underscore
-//= require fabric
-//= require fabric.hover
-//= require javascript-vehicles/Class
-//= require javascript-vehicles/Vector2D
-//= require javascript-vehicles/Vehicle
-//= require javascript-vehicles/SteeredVehicle
-//= require b64
-//= require bit_stream
+//= require vendor/rAF
+//= require vendor/jquery
+//= require vendor/underscore
+//= require vendor/fabric
+//= require vendor/fabric.hover
+//= require vendor/javascript-vehicles
+//= require vendor/b64
+//= require vendor/bit_stream
+//= require vendor/riffwave
 
 //= require world
 //= require grid
@@ -16,6 +14,5 @@
 //= require creature_frame
 //= require creature
 //= require creature_serializer
+//= require noise
 //= require main
-//= require riffwave
-//= require worker
