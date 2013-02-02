@@ -1,7 +1,7 @@
 window.World = class World extends fabric.Canvas
 
 	constructor: (options) ->
-		super
+		fabric.Canvas.apply(@, [options])
 
 		@creatures = []
 
@@ -13,7 +13,8 @@ window.World = class World extends fabric.Canvas
 
 		window.selected_creature = null
 
-		world =  @
+		world = @
+
 		@on 'object:over', (options) ->
 			world.remove selected_creature
 
