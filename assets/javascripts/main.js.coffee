@@ -3,7 +3,9 @@ $ ->
 	$('#stage').attr height: $(document).height()
 	window.world = world = new World('stage')
 
-	world.generateCreatures(10)
+	num_creatures = url('#creatures') || 10
+
+	world.generateCreatures(num_creatures)
 	world.run()
 
 	# Select last created creature:

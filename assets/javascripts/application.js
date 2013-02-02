@@ -7,6 +7,7 @@
 //= require vendor/b64
 //= require vendor/bit_stream
 //= require vendor/riffwave
+//= require vendor/js-url
 
 //= require world
 //= require grid
