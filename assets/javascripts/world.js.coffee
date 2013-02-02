@@ -14,6 +14,7 @@ window.World = class World extends fabric.Canvas
 		window.selected_creature = null
 
 		world = @
+		world.selection = false
 
 		@on 'object:over', (options) ->
 			world.remove selected_creature
@@ -49,3 +50,12 @@ window.World = class World extends fabric.Canvas
 		@last_time = time
 
 		@renderAll()
+
+	run: ->
+		@setup()
+
+		world = @
+		runCallback = ->
+			world.animate(new Date().getTime())
+			requestAnimationFrame runCallback
+		runCallback()
