@@ -4,7 +4,11 @@ $ ->
 	window.world = world = new World('stage')
 
 	num_creatures = url('#creatures') || 10
+	bg_color = url('#bg') || '#fff'
+	scale = url('#scale') || 1
 
+	world.backgroundColor = bg_color
+	world.scale = scale
 	world.generateCreatures(num_creatures)
 	world.run()
 

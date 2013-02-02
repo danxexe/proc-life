@@ -48,6 +48,11 @@ window.Creature = class Creature extends fabric.Group
 
 		@set cornersize: 5
 
+	scale: (val) ->
+		super(val)
+		@ai.maxSpeed *= val
+		@ai.maxForce *= val
+
 	update: (dt, options = {}) ->
 		@time_since_toggle += dt
 		@time_since_wander += dt

@@ -8,6 +8,7 @@ window.World = class World extends fabric.Canvas
 	setup: ->
 		for creature in @creatures
 			@add creature
+			creature.scale(@scale) if @scale
 
 		@last_time = new Date().getTime()
 
